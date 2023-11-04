@@ -15,7 +15,6 @@ export class ComponentitoComponent {
   sharedStateAppService = inject(SharedStateAppService)
 
   constructor() {
-    this.user = this.sharedStateAppService.appSignalsState.getSignal(AppSignalKeys.USER);
+    this.user = this.sharedStateAppService.appSignalsState.getSignal<User>(AppSignalKeys.USER);
   }
 }
-

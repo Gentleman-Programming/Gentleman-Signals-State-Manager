@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { SignalsManager } from '../utilities/signals-manager.utility';
 import { User } from '../models';
 
-export enum AppSignalKeys {
-  'USER' = 'user',
-  'TEST' = 'test',
-}
+export const AppSignalKeys = {
+  'USER': 'user',
+  'TEST': 'test',
+} as const
 
 export interface AppSignalState {
-  [key: string]: any;
   [AppSignalKeys.USER]: User;
   [AppSignalKeys.TEST]: string;
 }
