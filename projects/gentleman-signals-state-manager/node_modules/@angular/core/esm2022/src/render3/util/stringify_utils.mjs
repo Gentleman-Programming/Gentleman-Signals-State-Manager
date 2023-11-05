@@ -1,0 +1,63 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { NG_COMP_DEF } from '../fields';
+/**
+ * Used for stringify render output in Ivy.
+ * Important! This function is very performance-sensitive and we should
+ * be extra careful not to introduce megamorphic reads in it.
+ * Check `core/test/render3/perf/render_stringify` for benchmarks and alternate implementations.
+ */
+export function renderStringify(value) {
+    if (typeof value === 'string')
+        return value;
+    if (value == null)
+        return '';
+    // Use `String` so that it invokes the `toString` method of the value. Note that this
+    // appears to be faster than calling `value.toString` (see `render_stringify` benchmark).
+    return String(value);
+}
+/**
+ * Used to stringify a value so that it can be displayed in an error message.
+ *
+ * Important! This function contains a megamorphic read and should only be
+ * used for error messages.
+ */
+export function stringifyForError(value) {
+    if (typeof value === 'function')
+        return value.name || value.toString();
+    if (typeof value === 'object' && value != null && typeof value.type === 'function') {
+        return value.type.name || value.type.toString();
+    }
+    return renderStringify(value);
+}
+/**
+ * Used to stringify a `Type` and including the file path and line number in which it is defined, if
+ * possible, for better debugging experience.
+ *
+ * Important! This function contains a megamorphic read and should only be used for error messages.
+ */
+export function debugStringifyTypeForError(type) {
+    // TODO(pmvald): Do some refactoring so that we can use getComponentDef here without creating
+    // circular deps.
+    let componentDef = type[NG_COMP_DEF] || null;
+    if (componentDef !== null && componentDef.debugInfo) {
+        return stringifyTypeFromDebugInfo(componentDef.debugInfo);
+    }
+    return stringifyForError(type);
+}
+// TODO(pmvald): Do some refactoring so that we can use the type ClassDebugInfo for the param
+// debugInfo here without creating circular deps.
+function stringifyTypeFromDebugInfo(debugInfo) {
+    if (!debugInfo.filePath || !debugInfo.lineNumber) {
+        return debugInfo.className;
+    }
+    else {
+        return `${debugInfo.className} (at ${debugInfo.filePath}:${debugInfo.lineNumber})`;
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3RyaW5naWZ5X3V0aWxzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vcGFja2FnZXMvY29yZS9zcmMvcmVuZGVyMy91dGlsL3N0cmluZ2lmeV91dGlscy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFHSCxPQUFPLEVBQUMsV0FBVyxFQUFDLE1BQU0sV0FBVyxDQUFDO0FBRXRDOzs7OztHQUtHO0FBQ0gsTUFBTSxVQUFVLGVBQWUsQ0FBQyxLQUFVO0lBQ3hDLElBQUksT0FBTyxLQUFLLEtBQUssUUFBUTtRQUFFLE9BQU8sS0FBSyxDQUFDO0lBQzVDLElBQUksS0FBSyxJQUFJLElBQUk7UUFBRSxPQUFPLEVBQUUsQ0FBQztJQUM3QixxRkFBcUY7SUFDckYseUZBQXlGO0lBQ3pGLE9BQU8sTUFBTSxDQUFDLEtBQUssQ0FBQyxDQUFDO0FBQ3ZCLENBQUM7QUFHRDs7Ozs7R0FLRztBQUNILE1BQU0sVUFBVSxpQkFBaUIsQ0FBQyxLQUFVO0lBQzFDLElBQUksT0FBTyxLQUFLLEtBQUssVUFBVTtRQUFFLE9BQU8sS0FBSyxDQUFDLElBQUksSUFBSSxLQUFLLENBQUMsUUFBUSxFQUFFLENBQUM7SUFDdkUsSUFBSSxPQUFPLEtBQUssS0FBSyxRQUFRLElBQUksS0FBSyxJQUFJLElBQUksSUFBSSxPQUFPLEtBQUssQ0FBQyxJQUFJLEtBQUssVUFBVSxFQUFFO1FBQ2xGLE9BQU8sS0FBSyxDQUFDLElBQUksQ0FBQyxJQUFJLElBQUksS0FBSyxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztLQUNqRDtJQUVELE9BQU8sZUFBZSxDQUFDLEtBQUssQ0FBQyxDQUFDO0FBQ2hDLENBQUM7QUFFRDs7Ozs7R0FLRztBQUNILE1BQU0sVUFBVSwwQkFBMEIsQ0FBQyxJQUFlO0lBQ3hELDZGQUE2RjtJQUM3RixpQkFBaUI7SUFDakIsSUFBSSxZQUFZLEdBQUksSUFBWSxDQUFDLFdBQVcsQ0FBQyxJQUFJLElBQUksQ0FBQztJQUN0RCxJQUFJLFlBQVksS0FBSyxJQUFJLElBQUksWUFBWSxDQUFDLFNBQVMsRUFBRTtRQUNuRCxPQUFPLDBCQUEwQixDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsQ0FBQztLQUMzRDtJQUVELE9BQU8saUJBQWlCLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDakMsQ0FBQztBQUVELDZGQUE2RjtBQUM3RixpREFBaUQ7QUFDakQsU0FBUywwQkFBMEIsQ0FBQyxTQUFjO0lBQ2hELElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxJQUFJLENBQUMsU0FBUyxDQUFDLFVBQVUsRUFBRTtRQUNoRCxPQUFPLFNBQVMsQ0FBQyxTQUFTLENBQUM7S0FDNUI7U0FBTTtRQUNMLE9BQU8sR0FBRyxTQUFTLENBQUMsU0FBUyxRQUFRLFNBQVMsQ0FBQyxRQUFRLElBQUksU0FBUyxDQUFDLFVBQVUsR0FBRyxDQUFDO0tBQ3BGO0FBQ0gsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge1R5cGV9IGZyb20gJy4uLy4uL2ludGVyZmFjZS90eXBlJztcbmltcG9ydCB7TkdfQ09NUF9ERUZ9IGZyb20gJy4uL2ZpZWxkcyc7XG5cbi8qKlxuICogVXNlZCBmb3Igc3RyaW5naWZ5IHJlbmRlciBvdXRwdXQgaW4gSXZ5LlxuICogSW1wb3J0YW50ISBUaGlzIGZ1bmN0aW9uIGlzIHZlcnkgcGVyZm9ybWFuY2Utc2Vuc2l0aXZlIGFuZCB3ZSBzaG91bGRcbiAqIGJlIGV4dHJhIGNhcmVmdWwgbm90IHRvIGludHJvZHVjZSBtZWdhbW9ycGhpYyByZWFkcyBpbiBpdC5cbiAqIENoZWNrIGBjb3JlL3Rlc3QvcmVuZGVyMy9wZXJmL3JlbmRlcl9zdHJpbmdpZnlgIGZvciBiZW5jaG1hcmtzIGFuZCBhbHRlcm5hdGUgaW1wbGVtZW50YXRpb25zLlxuICovXG5leHBvcnQgZnVuY3Rpb24gcmVuZGVyU3RyaW5naWZ5KHZhbHVlOiBhbnkpOiBzdHJpbmcge1xuICBpZiAodHlwZW9mIHZhbHVlID09PSAnc3RyaW5nJykgcmV0dXJuIHZhbHVlO1xuICBpZiAodmFsdWUgPT0gbnVsbCkgcmV0dXJuICcnO1xuICAvLyBVc2UgYFN0cmluZ2Agc28gdGhhdCBpdCBpbnZva2VzIHRoZSBgdG9TdHJpbmdgIG1ldGhvZCBvZiB0aGUgdmFsdWUuIE5vdGUgdGhhdCB0aGlzXG4gIC8vIGFwcGVhcnMgdG8gYmUgZmFzdGVyIHRoYW4gY2FsbGluZyBgdmFsdWUudG9TdHJpbmdgIChzZWUgYHJlbmRlcl9zdHJpbmdpZnlgIGJlbmNobWFyaykuXG4gIHJldHVybiBTdHJpbmcodmFsdWUpO1xufVxuXG5cbi8qKlxuICogVXNlZCB0byBzdHJpbmdpZnkgYSB2YWx1ZSBzbyB0aGF0IGl0IGNhbiBiZSBkaXNwbGF5ZWQgaW4gYW4gZXJyb3IgbWVzc2FnZS5cbiAqXG4gKiBJbXBvcnRhbnQhIFRoaXMgZnVuY3Rpb24gY29udGFpbnMgYSBtZWdhbW9ycGhpYyByZWFkIGFuZCBzaG91bGQgb25seSBiZVxuICogdXNlZCBmb3IgZXJyb3IgbWVzc2FnZXMuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBzdHJpbmdpZnlGb3JFcnJvcih2YWx1ZTogYW55KTogc3RyaW5nIHtcbiAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gJ2Z1bmN0aW9uJykgcmV0dXJuIHZhbHVlLm5hbWUgfHwgdmFsdWUudG9TdHJpbmcoKTtcbiAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gJ29iamVjdCcgJiYgdmFsdWUgIT0gbnVsbCAmJiB0eXBlb2YgdmFsdWUudHlwZSA9PT0gJ2Z1bmN0aW9uJykge1xuICAgIHJldHVybiB2YWx1ZS50eXBlLm5hbWUgfHwgdmFsdWUudHlwZS50b1N0cmluZygpO1xuICB9XG5cbiAgcmV0dXJuIHJlbmRlclN0cmluZ2lmeSh2YWx1ZSk7XG59XG5cbi8qKlxuICogVXNlZCB0byBzdHJpbmdpZnkgYSBgVHlwZWAgYW5kIGluY2x1ZGluZyB0aGUgZmlsZSBwYXRoIGFuZCBsaW5lIG51bWJlciBpbiB3aGljaCBpdCBpcyBkZWZpbmVkLCBpZlxuICogcG9zc2libGUsIGZvciBiZXR0ZXIgZGVidWdnaW5nIGV4cGVyaWVuY2UuXG4gKlxuICogSW1wb3J0YW50ISBUaGlzIGZ1bmN0aW9uIGNvbnRhaW5zIGEgbWVnYW1vcnBoaWMgcmVhZCBhbmQgc2hvdWxkIG9ubHkgYmUgdXNlZCBmb3IgZXJyb3IgbWVzc2FnZXMuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBkZWJ1Z1N0cmluZ2lmeVR5cGVGb3JFcnJvcih0eXBlOiBUeXBlPGFueT4pOiBzdHJpbmcge1xuICAvLyBUT0RPKHBtdmFsZCk6IERvIHNvbWUgcmVmYWN0b3Jpbmcgc28gdGhhdCB3ZSBjYW4gdXNlIGdldENvbXBvbmVudERlZiBoZXJlIHdpdGhvdXQgY3JlYXRpbmdcbiAgLy8gY2lyY3VsYXIgZGVwcy5cbiAgbGV0IGNvbXBvbmVudERlZiA9ICh0eXBlIGFzIGFueSlbTkdfQ09NUF9ERUZdIHx8IG51bGw7XG4gIGlmIChjb21wb25lbnREZWYgIT09IG51bGwgJiYgY29tcG9uZW50RGVmLmRlYnVnSW5mbykge1xuICAgIHJldHVybiBzdHJpbmdpZnlUeXBlRnJvbURlYnVnSW5mbyhjb21wb25lbnREZWYuZGVidWdJbmZvKTtcbiAgfVxuXG4gIHJldHVybiBzdHJpbmdpZnlGb3JFcnJvcih0eXBlKTtcbn1cblxuLy8gVE9ETyhwbXZhbGQpOiBEbyBzb21lIHJlZmFjdG9yaW5nIHNvIHRoYXQgd2UgY2FuIHVzZSB0aGUgdHlwZSBDbGFzc0RlYnVnSW5mbyBmb3IgdGhlIHBhcmFtXG4vLyBkZWJ1Z0luZm8gaGVyZSB3aXRob3V0IGNyZWF0aW5nIGNpcmN1bGFyIGRlcHMuXG5mdW5jdGlvbiBzdHJpbmdpZnlUeXBlRnJvbURlYnVnSW5mbyhkZWJ1Z0luZm86IGFueSk6IHN0cmluZyB7XG4gIGlmICghZGVidWdJbmZvLmZpbGVQYXRoIHx8ICFkZWJ1Z0luZm8ubGluZU51bWJlcikge1xuICAgIHJldHVybiBkZWJ1Z0luZm8uY2xhc3NOYW1lO1xuICB9IGVsc2Uge1xuICAgIHJldHVybiBgJHtkZWJ1Z0luZm8uY2xhc3NOYW1lfSAoYXQgJHtkZWJ1Z0luZm8uZmlsZVBhdGh9OiR7ZGVidWdJbmZvLmxpbmVOdW1iZXJ9KWA7XG4gIH1cbn1cbiJdfQ==

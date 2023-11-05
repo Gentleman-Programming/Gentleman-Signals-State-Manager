@@ -1,0 +1,13 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A constant indicating a type of comparison that NgSwitch uses to match cases. Extracted to a
+ * separate file to facilitate G3 patches.
+ */
+export const NG_SWITCH_USE_STRICT_EQUALS = true;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmdfc3dpdGNoX2VxdWFsaXR5LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vcGFja2FnZXMvY29tbW9uL3NyYy9kaXJlY3RpdmVzL25nX3N3aXRjaF9lcXVhbGl0eS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFHSDs7O0dBR0c7QUFDSCxNQUFNLENBQUMsTUFBTSwyQkFBMkIsR0FBRyxJQUFJLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuXG4vKipcbiAqIEEgY29uc3RhbnQgaW5kaWNhdGluZyBhIHR5cGUgb2YgY29tcGFyaXNvbiB0aGF0IE5nU3dpdGNoIHVzZXMgdG8gbWF0Y2ggY2FzZXMuIEV4dHJhY3RlZCB0byBhXG4gKiBzZXBhcmF0ZSBmaWxlIHRvIGZhY2lsaXRhdGUgRzMgcGF0Y2hlcy5cbiAqL1xuZXhwb3J0IGNvbnN0IE5HX1NXSVRDSF9VU0VfU1RSSUNUX0VRVUFMUyA9IHRydWU7XG4iXX0=
