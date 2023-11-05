@@ -2,6 +2,7 @@ import { Inject, Injectable, InjectionToken, WritableSignal } from "@angular/cor
 import { GManager } from "../utilities";
 
 export const GENTLEMAN_DEFAULT_STATE = new InjectionToken('GENTLEMAN_DEFAULT_STATE');
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +25,5 @@ export class GManagerService<T extends { [K in keyof T]: any }> {
     this.singalsManager.addSignal(key, payload);
   }
 }
-
-
 
 

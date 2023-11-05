@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { User } from '../../models';
 import { GManagerService } from 'gentleman-signals-state-manager';
 import { AppSignalKeys, AppSignalState } from 'src/app/models/signals.model';
+import { SignalsManagerService } from 'src/app/services/signals-manager.service';
 
 @Component({
   selector: 'app-componentito2',
@@ -12,7 +13,7 @@ import { AppSignalKeys, AppSignalState } from 'src/app/models/signals.model';
   styleUrls: ['./componentito2.component.scss'],
 })
 export class Componentito2Component {
-  signalsManager = inject(GManagerService<AppSignalState>);
+  signalsManagerService = inject(SignalsManagerService);
 
   changeSignal() {
     const userObject: User = {
@@ -20,6 +21,6 @@ export class Componentito2Component {
       age: 30
     }
 
-    this.signalsManager.updateSignal(AppSignalKeys.USER, userObject)
+    this.signalsManagerService.singalsManager.updateSignal(AppSignalKeys.USER, userObject)
   }
 }

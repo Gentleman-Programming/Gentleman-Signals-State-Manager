@@ -12,7 +12,7 @@ export interface AppSignalState {
 
 export const emptyAppSignalState: AppSignalState = {
   [AppSignalKeys.USER]: {
-    name: 'test',
+    name: '',
     age: 0,
   },
   [AppSignalKeys.TEST]: '',

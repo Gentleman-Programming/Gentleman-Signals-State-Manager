@@ -3598,9 +3598,10 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
-"gentleman-signals-state-manager@file:../dist/gentleman-signals-state-manager":
+gentleman-signals-state-manager@^0.0.1:
   version "0.0.1"
-  resolved "file:../dist/gentleman-signals-state-manager"
+  resolved "https://registry.npmjs.org/gentleman-signals-state-manager/-/gentleman-signals-state-manager-0.0.1.tgz"
+  integrity sha512-Jri/oyuZLORbvaKk7Ve60x0B1mcu3bXJa+0FrPsQWbxQcGX0MlRO4soMfQTX2FxW9Zg8VMb8kRzBKSV6Agjebw==
   dependencies:
     tslib "^2.3.0"
 

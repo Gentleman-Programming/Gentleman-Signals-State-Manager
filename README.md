@@ -1,97 +1,138 @@
-# Gentleman Signals based State Manager 
+# 🚀 gentleman-signals-state-manager: ¡Manejando señales de estado como un caballero! 🎩
 
-# English
-
-This repository contains an implementation of a generic shared state service for Angular. This service uses the `SignalsManager` class to manage a shared state throughout the application.
+## English 🎩
 
 ## Description
+`GManagerService` is at the heart of the `gentleman-signals-state-manager` library, a state signal management service in Angular that is not only classy, but super powerful!
 
-The `SharedStateAppService` is a service that manages a generic shared state in the application. It uses the `SignalsManager` class, which maintains a collection of signals, to handle and manipulate the application state.
+### Why use `gentleman-signals-state-manager` instead of 'raw' signals?
 
-The application state is defined in the `AppSignalState` interface. This state can include any number of properties of various types, which are represented by the notation `[key: string]: any`. Each property in the application state will correspond to a signal in the `SignalsManager`.
+- 🎯 **Framework-Agnostic**: Designed to work with Angular, but thanks to its agnostic design, it could be easily adapted for any frontend library or framework.
 
-The initial state of the application is defined in the `emptyAppSignalState` object. You can define the initial state for the properties you need in your application here.
+- 💼 **Simplified Signal Management**: Forget about manually handling signals and let `GManagerService` take care of everything. Add, update, and get signals with ease.
 
-The `SharedStateAppService` service is injected into the 'root' scope, which means it is a singleton and the same state will be shared across the entire application.
+- 🛡️ **Robust**: Handles errors automatically, protecting your app against non-existent or duplicate signals.
 
-## Usage
+- 🚀 **Optimized Performance**: By managing signals efficiently, `GManagerService` helps keep your app fast and agile.
+  
+## Recommended Usage
+To start using `gentleman-signals-state-manager` in your own project, follow the format shown below:
 
-The `SharedStateAppService` initializes its state with the `emptyAppSignalState`. You can add to the `emptyAppSignalState` the properties you need for your application.
+```typescript
+// Import the necessary
+import { Inject, Injectable } from "@angular/core";
+import { GENTLEMAN_DEFAULT_STATE, GManagerService } from "gentleman-signals-state-manager";
 
-To manipulate the application state, you can interact directly with `appSignalsState`. The signal manipulation methods, including `addSignal`, `removeSignal`, `getSignal`, and `updateSignal` can be used for this purpose.
+// Define your own service
+@Injectable({
+  providedIn: 'root',
+})
+export class SignalsManagerService<T> {
+  signalsManager: GManagerService<T>;
 
-For instance, to update a state property, you could call `appSignalsState.updateSignal(key, newValue)`, where `key` is the key of the property you want to update.
+  // Inject the initial state
+  constructor(@Inject(GENTLEMAN_DEFAULT_STATE) defaultState: T) {
+    this.signalsManager = new GManagerService(defaultState);
+  }
+}
+```
 
-## Dependencies
+And then, in your main component:
 
-This code relies on the `@angular/core` module and the `SignalsManager` class. Both must be present in your project for this code to work correctly.
+```typescript
+// Provide your service and the initial state
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    ComponentitoComponent,
+    Componentito2Component,
+  ],
+  providers: [
+    SignalsManagerService<AppSignalState>,
+    { provide: GENTLEMAN_DEFAULT_STATE, useValue: emptyAppSignalState },
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent {
+  title = 'Gentleman Signals State Manager';
+}
+```
 
-## Contribution
+For a complete example of how to use `gentleman-signals-state-manager`, check out the "example" folder in our GitHub repository.
 
-Contributions are welcome. Please fork the repository and create a pull request with your changes.
+To install `gentleman-signals-state-manager` in your project, head over to [the package page on npm](https://www.npmjs.com/package/gentleman-signals-state-manager).
 
-## License
+You're all set to start managing state signals like a true gentleman! 🎩🚀
 
-The code in this repository is published under the [Insert your license here]. Please refer to the LICENSE file for more details.
-
-# Español
-
-Este repositorio contiene una implementación de un servicio de estado compartido genérico para Angular. Este servicio utiliza la clase `SignalsManager` para manejar un estado compartido a lo largo de la aplicación.
+## English 🎩
 
 ## Descripción
+`GManagerService` es el corazón de la librería `gentleman-signals-state-manager`, un servicio de manejo de señales de estado en Angular que no solo es elegante, ¡sino que también es super potente!
 
-El `SharedStateAppService` es un servicio que administra un estado compartido genérico en la aplicación. Utiliza la clase `SignalsManager` que mantiene una colección de señales, para administrar y manipular el estado de la aplicación.
+### ¿Por qué usar `gentleman-signals-state-manager` en lugar de señales 'crudas'?
 
-El estado de la aplicación se define en la interfaz `AppSignalState`. Este estado puede incluir cualquier cantidad de propiedades de diferentes tipos, las cuales son representadas por la notación `[key: string]: any`. Cada propiedad en el estado de la aplicación corresponderá a una señal en el `SignalsManager`.
+- 🎯 **Agnóstico a los frameworks**: Diseñado para funcionar con Angular, pero gracias a su diseño agnóstico, podría ser fácilmente adaptado para cualquier librería o framework de frontend.
 
-El estado inicial de la aplicación se define en el objeto `emptyAppSignalState`. Puede definir aquí el estado inicial para las propiedades que necesita en su aplicación.
+- 💼 **Manejo de señales simplificado**: Olvídate del manejo manual de las señales y deja que `GManagerService` se ocupe de todo. Añade, actualiza y obtén señales con facilidad.
 
-El servicio `SharedStateAppService` se inyecta en el ámbito 'root', lo que significa que es un singleton y el mismo estado se compartirá en toda la aplicación.
+- 🛡️ **Robusto**: Maneja errores automáticamente, protegiendo tu aplicación contra señales inexistentes o duplicadas.
 
-## Uso
+- 🚀 **Rendimiento optimizado**: Al manejar las señales de manera eficiente, `GManagerService` ayuda a mantener tu aplicación rápida y ágil.
 
-El `SharedStateAppService` inicializa su estado con el `emptyAppSignalState`. Puede añadir al `emptyAppSignalState` las propiedades que necesita para su aplicación.
+## Uso Recomendado
+Para comenzar a utilizar `gentleman-signals-state-manager` en tu propio proyecto, sigue el formato que se muestra a continuación:
 
-Para manipular el estado de la aplicación, puede interactuar directamente con `appSignalsState`. Los métodos de manipulación de señales, entre ellos `addSignal`, `removeSignal`, `getSignal` y `updateSignal` pueden ser utilizados para este propósito.
+```typescript
+// Importa lo necesario
+import { Inject, Injectable } from "@angular/core";
+import { GENTLEMAN_DEFAULT_STATE, GManagerService } from "gentleman-signals-state-manager";
 
-Por ejemplo, para actualizar una propiedad del estado, podría llamar a `appSignalsState.updateSignal(key, newValue)`, donde `key` es la clave de la propiedad que desea actualizar.
+// Define tu propio servicio
+@Injectable({
+  providedIn: 'root',
+})
+export class SignalsManagerService<T> {
+  signalsManager: GManagerService<T>;
 
-## Dependencias
+  // Inyecta el estado inicial
+  constructor(@Inject(GENTLEMAN_DEFAULT_STATE) defaultState: T) {
+    this.signalsManager = new GManagerService(defaultState);
+  }
+}
+```
 
-Este código depende del módulo `@angular/core` y de la clase `SignalsManager`. Ambos deben estar presentes en su proyecto para que este código funcione correctamente.
+Y luego, en tu componente principal:
 
-## Contribución
+```typescript
+// Proporciona tu servicio y el estado inicial
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    ComponentitoComponent,
+    Componentito2Component,
+  ],
+  providers: [
+    SignalsManagerService<AppSignalState>,
+    { provide: GENTLEMAN_DEFAULT_STATE, useValue: emptyAppSignalState },
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent {
+  title = 'Gentleman Signals State Manager';
+}
+```
 
-Las contribuciones son bienvenidas. Por favor, haga un 'fork' del repositorio y cree una 'pull request' con sus cambios.
+Para un ejemplo completo de cómo utilizar `gentleman-signals-state-manager`, visita la carpeta "example" en nuestro repositorio de GitHub.
 
-## Licencia
+Para instalar `gentleman-signals-state-manager` en tu proyecto, dirígete a [la página del paquete en npm](https://www.npmjs.com/package/gentleman-signals-state-manager).
 
-El código en este repositorio se publica bajo la licencia MIT. Consulte el archivo LICENSE para obtener más detalles.
+¡Estás listo para comenzar a manejar señales de estado como un verdadero caballero! 🎩🚀
 
-# AngularMeetUp
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
