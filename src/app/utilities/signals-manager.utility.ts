@@ -21,7 +21,7 @@ export class SignalsManager<T extends { [K in keyof T]: any }> {
     this.signalsCollection.set(key, signalObject);
   }
 
-  getSignal<U>(key: keyof T): WritableSignal<U> {
+  getSignal<U extends T[keyof T]>(key: keyof T): WritableSignal<U> {
     const foundSignal = this.signalsCollection.get(key);
     if (!foundSignal) {
       const stringKey = String(key);
@@ -31,7 +31,7 @@ export class SignalsManager<T extends { [K in keyof T]: any }> {
   }
 
   updateSignal(key: keyof T, payload: T[keyof T]) {
-    const foundSignal = this.getSignal(key);
+    const foundSignal = this.getSignal<typeof payload>(key);
     foundSignal.set(payload);
   }
 }

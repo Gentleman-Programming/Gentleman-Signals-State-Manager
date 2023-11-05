@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, WritableSignal, inject } from '@angular/core';
 import { User } from '../../models';
-import { SharedStateAppService, AppSignalKeys } from '../../services';
+import { AppSignalKeys, SharedStateAppService } from '../../services';
 
 @Component({
   selector: 'app-componentito',
@@ -18,3 +18,4 @@ export class ComponentitoComponent {
     this.user = this.sharedStateAppService.appSignalsState.getSignal<User>(AppSignalKeys.USER);
   }
 }
+
