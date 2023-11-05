@@ -13,7 +13,6 @@
   },
   "private": true,
   "dependencies": {
-    "-": "^0.0.1",
     "@angular/animations": "^17.0.0-rc.2",
     "@angular/common": "^17.0.0-rc.2",
     "@angular/compiler": "^17.0.0-rc.2",
@@ -22,18 +21,12 @@
     "@angular/platform-browser": "^17.0.0-rc.2",
     "@angular/platform-browser-dynamic": "^17.0.0-rc.2",
     "@angular/router": "^17.0.0-rc.2",
-    "jest-environment-jsdom": "^29.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.0-rc.3",
-    "@angular-eslint/builder": "16.2.0",
-    "@angular-eslint/eslint-plugin": "16.2.0",
-    "@angular-eslint/eslint-plugin-template": "16.2.0",
-    "@angular-eslint/schematics": "16.2.0",
-    "@angular-eslint/template-parser": "16.2.0",
     "@angular/cli": "~17.0.0-rc.3",
     "@angular/compiler-cli": "^17.0.0-rc.2",
     "@types/jest": "^29.5.7",
