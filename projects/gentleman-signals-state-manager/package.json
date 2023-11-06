@@ -1,6 +1,6 @@
 {
   "name": "gentleman-signals-state-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^17.0.0-rc.2",
     "@angular/core": "^17.0.0-rc.2"
@@ -8,5 +8,23 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gentleman-Programming/Gentleman-Signals-State-Manager"
+  },
+  "keywords": [
+    "store",
+    "state",
+    "manager",
+    "signals",
+    "angular",
+    "typescript",
+    "javascript",
+    "programming"
+  ],
+  "bugs": {
+    "url": "https://github.com/Gentleman-Programming/Gentleman-Signals-State-Manager/issues"
+  },
+  "homepage": "https://github.com/Gentleman-Programming/Gentleman-Signals-State-Manager#readme",
   "sideEffects": false
 }
