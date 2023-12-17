@@ -1,6 +1,6 @@
 {
   "name": "gentleman-signals-state-manager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "peerDependencies": {
     "@angular/common": "^17.0.0-rc.2",
     "@angular/core": "^17.0.0-rc.2"
