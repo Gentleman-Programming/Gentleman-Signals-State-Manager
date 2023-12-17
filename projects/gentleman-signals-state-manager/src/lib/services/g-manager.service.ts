@@ -1,12 +1,14 @@
 import { Inject, Injectable, InjectionToken, WritableSignal } from "@angular/core";
 import { GManager } from "../utilities";
 
-export const GENTLEMAN_DEFAULT_STATE = new InjectionToken('GENTLEMAN_DEFAULT_STATE');
+export type State<T = {}> = { [K in keyof T]: any }
+
+export const GENTLEMAN_DEFAULT_STATE = new InjectionToken<State>('GENTLEMAN_DEFAULT_STATE');
 
 @Injectable({
   providedIn: 'root',
 })
-export class GManagerService<T extends { [K in keyof T]: any }> {
+export class GManagerService<T extends State<T>> {
   singalsManager: GManager<T>;
 
   constructor(@Inject(GENTLEMAN_DEFAULT_STATE) defaultState: T) {

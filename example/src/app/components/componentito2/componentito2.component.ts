@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { User } from '../../models';
-import { GManagerService } from 'gentleman-signals-state-manager';
-import { AppSignalKeys, AppSignalState } from 'src/app/models/signals.model';
+import { AppSignalKeys } from 'src/app/models/signals.model';
 import { SignalsManagerService } from 'src/app/services/signals-manager.service';
 
 @Component({
